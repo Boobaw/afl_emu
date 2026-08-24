@@ -1,6 +1,7 @@
 # Скомпилированные бинарники и объекты
 harness
 harness_debug
+make_packet.py
 *.o
 
 fuzz_out/
