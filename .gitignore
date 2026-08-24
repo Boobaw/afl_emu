@@ -3,8 +3,12 @@ harness
 harness_debug
 *.o
 
-# Логи и результаты работы фаззера
 fuzz_out/
+all_seeds/
+cmin_queue/
+fuzz_data/
+inject_seeds/
+
 
 # Системные файлы (на случай если откроешь проект в IDE)
 .vscode/

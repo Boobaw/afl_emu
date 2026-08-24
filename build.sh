@@ -7,6 +7,9 @@ NC='\033[0m'
 
 echo -e "${YELLOW}[*] Запуск Dual-Build конвейера...${NC}"
 
+#Временное отключение дампов памяти при ошибках (до перезагрузки)
+#echo core | sudo tee /proc/sys/kernel/core_pattern
+
 # Очистка
 rm -f harness harness_debug *.o
 
@@ -16,11 +19,11 @@ rm -f harness harness_debug *.o
 echo -e "${YELLOW}[*] Собираем БОЕВУЮ версию для фаззинга...${NC}"
 
 # ГОВОРИМ КОМПИЛЯТОРУ ЗАШИТЬ В БИНАРНИК КАРТУ НА 64KB!
-export AFL_MAP_SIZE=65536 
+export AFL_LLVM_INSTRUMENT=CLASSIC
 
 gcc -O2 -Wall -D__AFL_COMPILER -c src/emu_init.c -o emu_init.o
 gcc -O2 -Wall -D__AFL_COMPILER -c src/hook.c -o hook.o
-afl-cc -O2 -Wall src/main.c emu_init.o hook.o -o harness -lunicorn -lpthread
+afl-cc -O0 -g -Wall -D__AFL_COMPILER src/main.c emu_init.o hook.o -o harness -lunicorn -lpthread
 
 rm -f emu_init.o hook.o
 

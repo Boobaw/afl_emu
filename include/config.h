@@ -12,6 +12,9 @@
 #define STACK_ADDRESS     0x80000000
 #define STACK_SIZE        (2 * 1024 * 1024)
 
+#define STACK_ADDR 0x80000000
+#define STACK_TOP  (STACK_ADDR + STACK_SIZE - 0x1000)
+
 // Точка входа - адрес функции парсинга ASN.1, которую мы будем фаззить
 // (Пока ставим заглушку, потом поменяешь на реальный оффсет из IDA)
 #define TARGET_FUNC_ADDR  0x824 
